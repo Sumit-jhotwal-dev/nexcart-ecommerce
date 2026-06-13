@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexCart - Smart Shopping</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <nav>
+
+            <div class="logo">
+                NexCart
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">Categories</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+
+            <div class="nav-icons">
+
+                <span id="wishlist-count">
+    ❤️ Wishlist (0)
+</span>
+
+                <a href="cart.html" id="cart-count">
+    🛒 Cart (0)
+</a>
+<a href="orders.html">
+    My Orders
+</a>
+
+                <div id="user-section">
+
+    <a href="login.html"
+    id="login-link">
+
+        Login
+
+    </a>
+
+</div>
+
+            </div>
+            
+
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+
+        <div class="hero-left">
+
+            <h1>
+                Smart Shopping Starts With NexCart
+            </h1>
+
+            <p>
+                Discover the latest products with unbeatable prices,
+                fast delivery and secure payments.
+            </p>
+
+            <button>
+                Shop Now
+            </button>
+
+        </div>
+
+        <div class="hero-right">
+
+            <h2>
+                Up To 50% OFF
+            </h2>
+
+        </div>
+
+    </section>
+
+    <!-- Categories -->
+    <section id="categories">
+
+        <h2>Shop By Category</h2>
+
+        <div class="category-container">
+
+            <div class="category-card">
+    📱
+    <h3>Electronics</h3>
+</div>
+
+<div class="category-card">
+    👕
+    <h3>Fashion</h3>
+</div>
+
+<div class="category-card">
+    👟
+    <h3>Footwear</h3>
+</div>
+
+<div class="category-card">
+    ⌚
+    <h3>Watches</h3>
+</div>
+
+<div class="category-card">
+    🎧
+    <h3>Accessories</h3>
+</div>
+
+        </div>
+
+    </section>
+    <div class="search-box">
+
+    <input
+    type="text"
+    id="search-input"
+    placeholder="Search Products...">
+
+    <button id="search-btn">
+    Search
+</button>
+
+</div>
+
+    <!-- Featured Products -->
+          <section id="products">
+
+        <h2>Featured Products</h2>
+        
+
+        <div class="product-container">
+
+            <div class="product-card">
+
+    <div class="product-image">📱</div>
+
+    <h3>iPhone 15 Pro</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹1,09,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">💻</div>
+
+    <h3>Gaming Laptop</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹89,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">🎧</div>
+
+    <h3>Sony Headphones</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹4,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">⌚</div>
+
+    <h3>Smart Watch</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹6,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+       <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">👟</div>
+
+    <h3>Nike Shoes</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹3,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+
+<div class="product-card">
+
+    <div class="product-image">👕</div>
+
+    <h3>Men T-Shirt</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹999</p>
+
+    <div class="product-buttons">
+<button class="add-cart">
+    Add To Cart
+</button>    
+<button class="buy-now">
+    Buy Now
+</button>   
+ <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">🎒</div>
+
+    <h3>Travel Backpack</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹1,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+    </div>
+
+</div>
+
+<div class="product-card">
+
+    <div class="product-image">📷</div>
+
+    <h3>DSLR Camera</h3>
+
+    <div class="rating">⭐⭐⭐⭐⭐</div>
+
+    <p class="price">₹54,999</p>
+
+    <div class="product-buttons">
+        <button class="add-cart">
+    Add To Cart
+</button>
+<button class="buy-now">
+    Buy Now
+</button>
+        <button class="wishlist-btn">
+    ❤️
+</button>
+<button class="details-btn">
+    View Details
+</button>
+
+    </div>
+
+</div>
+        </div>
+
+    </section>
+
+    <!-- Why Choose Us -->
+    <section id="features">
+
+        <h2>Why Choose NexCart</h2>
+
+       <div class="feature-container">
+
+    <div class="feature-card">
+        🚚
+        <h3>Free Shipping</h3>
+    </div>
+
+    <div class="feature-card">
+        🔒
+        <h3>Secure Payments</h3>
+    </div>
+
+    <div class="feature-card">
+        📞
+        <h3>24/7 Support</h3>
+    </div>
+
+    <div class="feature-card">
+        🔄
+        <h3>Easy Returns</h3>
+    </div>
+
+</div>
+</section>
+<section id="newsletter">
+
+    <h2>Subscribe To Our Newsletter</h2>
+
+    <p>
+        Get updates about new products, offers and discounts.
+    </p>
+
+    <div class="newsletter-box">
+
+        <input
+        type="email"
+        placeholder="Enter Your Email">
+
+        <button>
+            Subscribe
+        </button>
+
+    </div>
+
+</section> 
+<div id="product-modal" class="modal">
+
+    <div class="modal-content">
+
+        <span class="close-modal">&times;</span>
+
+        <h2 id="modal-product-title"></h2>
+
+        <p id="modal-product-description"></p>
+
+    </div>
+
+</div>
+<footer>
+
+    <div class="footer-container">
+
+        <div class="footer-box">
+
+            <h3>NexCart</h3>
+
+            <p>
+                Your trusted destination for smart online shopping.
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Quick Links</h3>
+
+            <p>Home</p>
+            <p>Shop</p>
+            <p>About</p>
+            <p>Contact</p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Contact</h3>
+
+            <p>support@nexcart.com</p>
+            <p>+91 9876543210</p>
+
+        </div>
+
+    </div>
+
+    <div class="copyright">
+
+        © 2026 NexCart. All Rights Reserved.
+
+    </div>
+
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+
+
+
+            
