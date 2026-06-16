@@ -17,13 +17,28 @@ cartButtons.forEach(button=>{
         const productPrice =
         productCard.querySelector(".price").innerText;
 
-        cartItems.push({
+        const existingProduct =
+        cartItems.find(
+            item => item.name === productName
+        );
 
-            name: productName,
+        if(existingProduct){
 
-            price: productPrice
+            existingProduct.quantity += 1;
 
-        });
+        }else{
+
+            cartItems.push({
+
+                name: productName,
+
+                price: productPrice,
+
+                quantity: 1
+
+            });
+
+        }
 
         localStorage.setItem(
             "cartItems",
@@ -73,12 +88,14 @@ buyNowButtons.forEach(button=>{
     });
 
 });
-let wishlistCount =
-localStorage.getItem("wishlistCount") || 0;
+let wishlistItems =
+JSON.parse(
+    localStorage.getItem("wishlistItems")
+) || [];
 
 document.getElementById("wishlist-count")
 .innerText =
-`❤️ Wishlist (${wishlistCount})`;
+`❤️ Wishlist (${wishlistItems.length})`;
 
 const wishlistButtons =
 document.querySelectorAll(".wishlist-btn");
@@ -87,16 +104,45 @@ wishlistButtons.forEach(button=>{
 
     button.addEventListener("click",()=>{
 
-        wishlistCount++;
+        console.log("Wishlist Button Clicked");
 
-        localStorage.setItem(
-            "wishlistCount",
-            wishlistCount
+        const productCard =
+        button.closest(".product-card");
+
+        const product = {
+
+            name:
+            productCard.dataset.name,
+
+            price:
+            productCard.dataset.price,
+
+            image:
+            productCard.dataset.image
+
+        };
+
+        const alreadyExists =
+        wishlistItems.find(
+            item => item.name === product.name
         );
 
-        document.getElementById("wishlist-count")
-        .innerText =
-        `❤️ Wishlist (${wishlistCount})`;
+        if(!alreadyExists){
+
+            wishlistItems.push(product);
+
+            localStorage.setItem(
+                "wishlistItems",
+                JSON.stringify(wishlistItems)
+            );
+
+            document
+            .getElementById("wishlist-count")
+            .innerText =
+            `❤️ Wishlist (${wishlistItems.length})`;
+
+            alert("Added To Wishlist ❤️");
+        }
 
     });
 
@@ -191,22 +237,31 @@ document.getElementById("modal-product-description");
 const closeModal =
 document.querySelector(".close-modal");
 
-detailButtons.forEach(button=>{
+detailButtons.forEach(button => {
 
-    button.addEventListener("click",()=>{
+    button.addEventListener("click", () => {
 
         const productCard =
         button.closest(".product-card");
 
-        const title =
-        productCard.querySelector("h3").innerText;
+        const product = {
 
-        modalTitle.innerText = title;
+            name: productCard.dataset.name,
+            price: productCard.dataset.price,
+            image: productCard.dataset.image,
+            rating: productCard.dataset.rating,
+            stock: productCard.dataset.stock,
+            description: productCard.dataset.description
 
-        modalDescription.innerText =
-        `${title} is one of our premium products available on NexCart.`;
+        };
 
-        modal.style.display = "flex";
+        localStorage.setItem(
+            "selectedProduct",
+            JSON.stringify(product)
+        );
+
+        window.location.href =
+        "product.html";
 
     });
 
@@ -258,3 +313,165 @@ if(user && loggedIn === "true"){
     });
 
 }
+const themeBtn =
+document.getElementById("theme-toggle");
+
+if(localStorage.getItem("theme") === "dark"){
+
+    document.body.classList.add("dark");
+
+    themeBtn.innerText =
+    "☀️ Light Mode";
+}
+
+themeBtn.addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark");
+
+    if(
+        document.body.classList.contains("dark")
+    ){
+
+        localStorage.setItem(
+            "theme",
+            "dark"
+        );
+
+        themeBtn.innerText =
+        "☀️ Light Mode";
+
+    }else{
+
+        localStorage.setItem(
+            "theme",
+            "light"
+        );
+
+        themeBtn.innerText =
+        "🌙 Dark Mode";
+
+    }
+
+});
+document.querySelectorAll(".details-btn");
+
+detailButtons.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const productCard =
+        button.closest(".product-card");
+
+        const product = {
+
+            id:
+            productCard.dataset.id,
+
+            name:
+            productCard.dataset.name,
+
+            price:
+            productCard.dataset.price,
+
+            image:
+            productCard.dataset.image
+
+        };
+
+        localStorage.setItem(
+            "selectedProduct",
+            JSON.stringify(product)
+        );
+
+        window.location.href =
+        "product.html";
+
+    });
+
+});
+
+
+const categoryCards =
+document.querySelectorAll(".category-card");
+
+const products =
+document.querySelectorAll(".product-card");
+
+let activeCategory = null;
+
+categoryCards.forEach(card => {
+
+    card.addEventListener("click", () => {
+
+        const selectedCategory =
+        card.dataset.category;
+
+        // Same category par dobara click
+        if(activeCategory === selectedCategory){
+
+            products.forEach(product => {
+
+                product.style.display = "block";
+
+            });
+
+            activeCategory = null;
+
+            categoryCards.forEach(c =>
+                c.classList.remove("active")
+            );
+
+            return;
+        }
+
+        activeCategory = selectedCategory;
+
+        categoryCards.forEach(c =>
+            c.classList.remove("active")
+        );
+
+        card.classList.add("active");
+
+        products.forEach(product => {
+
+            if(
+                product.dataset.category ===
+                selectedCategory
+            ){
+
+                product.style.display = "block";
+
+            }else{
+
+                product.style.display = "none";
+
+            }
+
+        });
+
+        document
+        .getElementById("featured-products")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+    });
+
+});
+const menuToggle =
+document.querySelector(".menu-toggle");
+
+const navLinks =
+document.querySelector(".nav-links");
+
+const navIcons =
+document.querySelector(".nav-icons");
+
+menuToggle.addEventListener("click",()=>{
+
+    navLinks.classList.toggle("active");
+
+    navIcons.classList.toggle("active");
+
+});
+

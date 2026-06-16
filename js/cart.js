@@ -8,6 +8,16 @@ let total = 0;
 
 cartItems.forEach((item,index)=>{
 
+    const price =
+    Number(
+        item.price
+        .replace("₹","")
+        .replaceAll(",","")
+    );
+
+    const quantity =
+    item.quantity || 1;
+
     cartContainer.innerHTML += `
 
         <div class="cart-card">
@@ -15,6 +25,26 @@ cartItems.forEach((item,index)=>{
             <h3>${item.name}</h3>
 
             <p>${item.price}</p>
+
+           <div class="quantity-box">
+
+    <button
+    onclick="decreaseQty(${index})">
+
+        -
+
+    </button>
+
+    <span>${quantity}</span>
+
+    <button
+    onclick="increaseQty(${index})">
+
+        +
+
+    </button>
+
+</div>
 
             <button
             class="remove-btn"
@@ -28,11 +58,7 @@ cartItems.forEach((item,index)=>{
 
     `;
 
-    total += Number(
-        item.price
-        .replace("₹","")
-        .replaceAll(",","")
-    );
+    total += price * quantity;
 
 });
 
@@ -55,4 +81,42 @@ function removeItem(index){
     );
 
     location.reload();
+}
+function increaseQty(index){
+
+    let cartItems =
+    JSON.parse(
+        localStorage.getItem("cartItems")
+    ) || [];
+
+    cartItems[index].quantity += 1;
+
+    localStorage.setItem(
+        "cartItems",
+        JSON.stringify(cartItems)
+    );
+
+    location.reload();
+
+}
+function decreaseQty(index){
+
+    let cartItems =
+    JSON.parse(
+        localStorage.getItem("cartItems")
+    ) || [];
+
+    if(cartItems[index].quantity > 1){
+
+        cartItems[index].quantity -= 1;
+
+    }
+
+    localStorage.setItem(
+        "cartItems",
+        JSON.stringify(cartItems)
+    );
+
+    location.reload();
+
 }
