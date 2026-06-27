@@ -1,148 +1,137 @@
+
 let cartItems =
 JSON.parse(localStorage.getItem("cartItems")) || [];
 
 const cartButtons =
 document.querySelectorAll(".add-cart");
 
+
 cartButtons.forEach(button=>{
 
     button.addEventListener("click",()=>{
 
-        const productCard =
-        button.closest(".product-card");
-
-        const productName =
-        productCard.querySelector("h3").innerText;
-
-        const productPrice =
-        productCard.querySelector(".price").innerText;
-
-        const existingProduct =
-        cartItems.find(
-            item => item.name === productName
-        );
-
-        if(existingProduct){
-
-            existingProduct.quantity += 1;
-
-        }else{
-
-            cartItems.push({
-
-                name: productName,
-
-                price: productPrice,
-
-                quantity: 1
-
-            });
-
-        }
-
-        localStorage.setItem(
-            "cartItems",
-            JSON.stringify(cartItems)
-        );
-
-        document.getElementById("cart-count")
-        .innerText =
-        `🛒 Cart (${cartItems.length})`;
-
-    });
-
-});
-
-const buyNowButtons =
-document.querySelectorAll(".buy-now");
-
-buyNowButtons.forEach(button=>{
-
-    button.addEventListener("click",()=>{
 
         const productCard =
         button.closest(".product-card");
 
+
+        const productId =
+        productCard.dataset.id;
+
+
         const productName =
-        productCard.querySelector("h3").innerText;
+        productCard.dataset.name;
+
 
         const productPrice =
-        productCard.querySelector(".price").innerText;
+        productCard.dataset.price;
 
-        const buyNowProduct = {
 
-            name: productName,
+        const productImage =
+        productCard.dataset.image;
 
-            price: productPrice
 
-        };
+        fetch("add_to_cart.php",{
 
-        localStorage.setItem(
-            "buyNowProduct",
-            JSON.stringify(buyNowProduct)
-        );
+            method:"POST",
 
-        window.location.href =
-        "checkout.html";
+            headers:{
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
+
+
+            body:
+
+            `id=${productId}&name=${productName}&price=${productPrice}&image=${productImage}`
+
+        })
+
+        .then(response=>response.text())
+
+        .then(data=>{
+
+
+            if(data=="login_required"){
+
+                window.location.href =
+                "login.html";
+
+            }
+
+
+            else if(data=="added"){
+
+                alert("Added to Cart");
+
+            }
+
+
+            else{
+
+                alert(data);
+
+            }
+
+
+        });
+
 
     });
-
 });
-let wishlistItems =
-JSON.parse(
-    localStorage.getItem("wishlistItems")
-) || [];
 
-document.getElementById("wishlist-count")
-.innerText =
-`❤️ Wishlist (${wishlistItems.length})`;
 
 const wishlistButtons =
 document.querySelectorAll(".wishlist-btn");
 
 wishlistButtons.forEach(button=>{
 
-    button.addEventListener("click",()=>{
-
-        console.log("Wishlist Button Clicked");
+ button.addEventListener("click",()=>{
 
         const productCard =
         button.closest(".product-card");
 
-        const product = {
+     const product = {
 
-            name:
-            productCard.dataset.name,
+    id: productCard.dataset.id,
 
-            price:
-            productCard.dataset.price,
+    name: productCard.dataset.name,
 
-            image:
-            productCard.dataset.image
+    price: productCard.dataset.price,
 
-        };
+    image: productCard.dataset.image
 
-        const alreadyExists =
-        wishlistItems.find(
-            item => item.name === product.name
-        );
+};
 
-        if(!alreadyExists){
+        fetch("add_wishlist.php",{
 
-            wishlistItems.push(product);
+            method:"POST",
 
-            localStorage.setItem(
-                "wishlistItems",
-                JSON.stringify(wishlistItems)
-            );
+            headers:{
+                "Content-Type":
+                "application/x-www-form-urlencoded"
+            },
 
-            document
-            .getElementById("wishlist-count")
-            .innerText =
-            `❤️ Wishlist (${wishlistItems.length})`;
+            body:
+            `name=${encodeURIComponent(product.name)}&price=${encodeURIComponent(product.price)}&image=${encodeURIComponent(product.image)}`
 
-            alert("Added To Wishlist ❤️");
-        }
+        })
+
+        .then(res=>res.text())
+
+        .then(data=>{
+
+            if(data === "login_required"){
+
+                alert("Please Login First");
+
+            }else{
+
+                alert("Added To Wishlist ❤️");
+
+            }
+
+        });
 
     });
 
@@ -350,44 +339,7 @@ themeBtn.addEventListener("click",()=>{
         themeBtn.innerText =
         "🌙 Dark Mode";
 
-    }
-
-});
-document.querySelectorAll(".details-btn");
-
-detailButtons.forEach(button=>{
-
-    button.addEventListener("click",()=>{
-
-        const productCard =
-        button.closest(".product-card");
-
-        const product = {
-
-            id:
-            productCard.dataset.id,
-
-            name:
-            productCard.dataset.name,
-
-            price:
-            productCard.dataset.price,
-
-            image:
-            productCard.dataset.image
-
-        };
-
-        localStorage.setItem(
-            "selectedProduct",
-            JSON.stringify(product)
-        );
-
-        window.location.href =
-        "product.html";
-
-    });
-
+}
 });
 
 
@@ -474,4 +426,41 @@ menuToggle.addEventListener("click",()=>{
     navIcons.classList.toggle("active");
 
 });
+
+console.log("BUY NOW CODE START");
+const buyNowButtons =
+document.querySelectorAll(".buy-now");
+
+buyNowButtons.forEach(button=>{
+
+    button.addEventListener("click",()=>{
+
+        const productCard =
+        button.closest(".product-card");
+
+        const product = {
+
+            name:
+            productCard.dataset.name,
+
+            price:
+            productCard.dataset.price,
+
+            image:
+            productCard.dataset.image
+
+        };
+
+        localStorage.setItem(
+            "buyNowProduct",
+            JSON.stringify(product)
+        );
+
+        window.location.href =
+        "checkout.php?buynow=1";
+
+    });
+
+});
+
 

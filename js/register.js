@@ -1,4 +1,4 @@
-const registerForm =
+/*const registerForm =
 document.getElementById("register-form");
 
 registerForm.addEventListener("submit",(e)=>{
@@ -28,4 +28,4 @@ registerForm.addEventListener("submit",(e)=>{
     window.location.href =
     "login.html";
 
-});
+});*/

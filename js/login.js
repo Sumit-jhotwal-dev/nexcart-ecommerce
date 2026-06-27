@@ -1,4 +1,4 @@
-const loginForm =
+/* const loginForm =
 document.getElementById("login-form");
 
 loginForm.addEventListener("submit",(e)=>{
@@ -34,7 +34,7 @@ loginForm.addEventListener("submit",(e)=>{
         );
 
         window.location.href =
-        "index.html";
+        "index.php";
 
     }else{
 
@@ -42,4 +42,4 @@ loginForm.addEventListener("submit",(e)=>{
 
     }
 
-});
+});*/

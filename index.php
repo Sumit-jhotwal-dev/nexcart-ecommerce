@@ -1,3 +1,42 @@
+<?php
+session_start();
+?>
+
+<script>
+const isLoggedIn =
+<?php echo isset($_SESSION["user_id"]) ? "true" : "false"; ?>;
+
+if(!isLoggedIn){
+
+    localStorage.removeItem("wishlistItems");
+
+}
+</script>
+
+
+<?php
+
+include "config.php";
+
+$cartCount = 0;
+
+if(isset($_SESSION["user_id"])){
+
+    $user_id = $_SESSION["user_id"];
+
+    $result = mysqli_query(
+        $conn,
+        "SELECT COUNT(*) AS total
+         FROM cart
+         WHERE user_id='$user_id'"
+    );
+
+    $row = mysqli_fetch_assoc($result);
+
+    $cartCount = $row["total"];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,40 +60,51 @@
             </div>
 
             <ul class="nav-links">
-                <li><a href="index.html#hero">Home</a></li>
-                <li><a href="index.html#products">Shop</a></li>
-                <li><a href="index.html#categories">Categories</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#footer-container">Contact</a></li>
+                <li><a href="index.php#hero">Home</a></li>
+                <li><a href="index.php#products">Shop</a></li>
+                <li><a href="index.php#categories">Categories</a></li>
+                <li><a href="index.php#about">About</a></li>
+                <li><a href="index.php#footer-container">Contact</a></li>
             </ul>
 
             <div class="nav-icons">
 
-       <a href="wishlist.html"
+       <a href="wishlist.php"
 id="wishlist-count">
 
-❤️ Wishlist (0)
+❤️ Wishlist
 
 </a>
 
-                <a href="cart.html" id="cart-count">
-    🛒 Cart (0)
+   <a href="cart.php" id="cart-count">
+    🛒 Cart 
 </a>
-<a href="orders.html">
+<a href="orders.php">
     My Orders
 </a>
 
-                <div id="user-section">
+         <div id="user-section">
 
-    <a href="login.html"
-    id="login-link">
+<?php if(isset($_SESSION["user_id"])) { ?>
 
-        Login
+    <a href="profile.php">
+👤 <?php echo $_SESSION["user_name"]; ?>
+</a>
 
+    <a href="logout.php">
+        Logout
     </a>
 
-</div>
+<?php } else { ?>
 
+    <a href="login.html"
+       id="login-link">
+       Login
+    </a>
+
+<?php } ?>
+
+</div>
             </div>
             <button id="theme-toggle">
 
@@ -172,6 +222,7 @@ data-image="i phone.jpg">
     <div class="rating">⭐⭐⭐⭐⭐</div>
 
     <p class="price">₹1,09,999</p>
+    
 
     <div class="product-buttons">
 
@@ -315,7 +366,7 @@ data-description="Upgrade your wardrobe with this premium Men's T-Shirt. Made fr
 <div class="product-card"
 data-category="fashion"
 data-id="5"
-data-name="Men's T-Shirt"
+data-name="Mens T-Shirt"
 data-price="₹999"
 data-image="tshirt.jpg"
 data-rating="4.6"
@@ -368,6 +419,7 @@ data-description="Travel smarter with this spacious Travel Backpack. Featuring m
     <div class="rating">⭐⭐⭐⭐⭐</div>
 
     <p class="price">₹1,999</p>
+
 
     <div class="product-buttons">
         <button class="add-cart">
@@ -482,7 +534,7 @@ data-description="Professional DSLR camera for photography and videography enthu
 <div class="product-card"
 data-id="10"
 data-category="fashion"
-data-name="Men's T-Shirt"
+data-name="Mens T-Shirt"
 data-price="₹999"
 data-image="images/tshirt.jpg"
 data-rating="4.7"
@@ -594,6 +646,7 @@ data-description="Warm and comfortable hoodie for winter and casual outings.">
 </div>
 
 </div>
+
 <div class="product-card"
 data-id="14"
 data-category="footwear"
@@ -983,14 +1036,12 @@ data-description="Mechanical keyboard with tactile switches and RGB backlighting
 
     <div class="newsletter-box">
 
-        <input
-        type="email"
-        placeholder="Enter Your Email">
+       <form action="newsletter.php" method="POST">
 
-        <button>
-            Subscribe
-        </button>
+<input type="email" name="email" placeholder="Enter your email" required>
 
+<button class="subscribe-btn">Subscribe</button>
+</form>
     </div>
 
 </section> 
@@ -1035,28 +1086,37 @@ data-description="Mechanical keyboard with tactile switches and RGB backlighting
 </section>
 
 
-        <form class="contact-form">
+        <form class="contact-form"
+      action="contact.php"
+      method="POST">
 
-            <input
-            type="text"
-            placeholder="Your Name"
-            required> <br>
+    <input
+    type="text"
+    name="name"
+    placeholder="Your Name"
+    required>
 
-            <input
-            type="email"
-            placeholder="Your Email"
-            required><br>
+    <br>
 
-            <textarea
-            placeholder="Your Message"
-            rows="5"
-            required></textarea>
+    <input
+    type="email"
+    name="email"
+    placeholder="Your Email"
+    required>
 
-            <button type="submit">
-                Send Message
-            </button>
+    <br>
 
-        </form>
+    <textarea
+    name="message"
+    placeholder="Your Message"
+    rows="5"
+    required></textarea>
+
+    <button type="submit">
+        Send Message
+    </button>
+
+</form>
 
     </div>
 
@@ -1079,10 +1139,13 @@ data-description="Mechanical keyboard with tactile switches and RGB backlighting
 
             <h3>Quick Links</h3>
 
-            <p>Home</p>
-            <p>Shop</p>
-            <p>About</p>
-            <p>Contact</p>
+           <li><a href="index.php">Home</a></li>
+
+<li><a href="#products">Shop</a></li>
+
+<li><a href="#about">About</a></li>
+
+<li><a href="#contact">Contact</a></li>
 
         </div>
 
@@ -1106,6 +1169,13 @@ data-description="Mechanical keyboard with tactile switches and RGB backlighting
         © 2026 NexCart. All Rights Reserved.
 
     </div>
+ <p class="footer-credit">
+    Nexcart | Designed & Developed By
+    <a href=" https://sumit-jhotwal-dev.github.io/portfolio-website/"
+       target="_blank">
+       Sumit Jhotwal
+    </a>
+</p>
 
 </footer>
 

@@ -54,40 +54,7 @@ if(buyNowProduct){
         );
 
     });
-
 }
-
-document.getElementById("summary-total")
-.innerText =
-`Total: ₹${total.toLocaleString()}`;
-
-const form =
-document.getElementById("checkout-form");
-
-form.addEventListener("submit",(e)=>{
-
-    e.preventDefault();
-
-    const orderId =
-    "NXC-" +
-    Math.floor(
-        10000 + Math.random() * 90000
-    );
-
-    const orders =
-JSON.parse(localStorage.getItem("orders")) || [];
-
-orders.push({
-
-    orderId: orderId,
-
-    total: total,
-
-    date: new Date().toLocaleDateString(),
-
-    status: "Processing"
-
-});
 
 localStorage.setItem(
     "orders",
@@ -111,7 +78,7 @@ localStorage.setItem(
 
     localStorage.removeItem("cartItems");
 
-});
+
 localStorage.removeItem(
     "buyNowProduct"
 );

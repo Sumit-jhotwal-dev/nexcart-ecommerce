@@ -1,110 +1,116 @@
-const product =
-JSON.parse(
-    localStorage.getItem(
-        "selectedProduct"
-    )
-);
+console.log("JS FILE RUNNING");
+
+document.addEventListener("DOMContentLoaded", ()=>{
+
+
+const productData = localStorage.getItem("selectedProduct");
+
+
+if(!productData){
+
+    console.log("Product not found");
+
+    return;
+
+}
+
+
+const product = JSON.parse(productData);
+
 
 const productInfo =
-document.getElementById(
-    "product-info"
-);
+document.getElementById("product-info");
+
 
 productInfo.innerHTML = `
+
+
 <div class="product-card">
 
-    <div class="product-image">
-        ${product.image}
-    </div>
 
-    <h2>${product.name}</h2>
+<div class="product-image">
 
-    <p>⭐⭐⭐⭐⭐ ${product.rating || "4.9"}</p>
-
-    <p class="price">₹${product.price}</p>
-
-    <p>✔ ${product.stock || "In Stock"}</p>
-
-    <p>✔ Free Delivery</p>
-
-    <p>✔ 1 Year Warranty</p>
-
-    <p>
-        ${product.description || "Premium product available on NexCart."}
-    </p>
-
-    <button id="detail-cart">
-        Add To Cart
-    </button>
-
-    <button id="detail-buy">
-        Buy Now
-    </button>
+<img src="${product.image.includes("images/") ? product.image : "images/"+product.image}">
 
 </div>
+
+
+<h2>${product.name}</h2>
+
+
+<p class="price">
+${product.price}
+</p>
+
+
+<button id="detail-cart">
+Add To Cart
+</button>
+
+
+<button id="detail-buy">
+Buy Now
+</button>
+
+
+</div>
+
 `;
-        document.getElementById("detail-buy")
-.addEventListener("click",()=>{
-
-    localStorage.setItem(
-
-        "buyNowProduct",
-
-        JSON.stringify({
-
-            name: product.name,
-
-            price: product.price
-
-        })
-
-    );
-
-    window.location.href =
-    "checkout.html";
-
-});
-
-    
-
-
 document.getElementById("detail-cart")
-.addEventListener("click",()=>{
+.addEventListener("click", () => {
 
-    let cartItems =
-    JSON.parse(
-        localStorage.getItem("cartItems")
-    ) || [];
+    fetch("add_to_cart.php", {
 
-    const existingProduct =
-    cartItems.find(
-        item => item.name === product.name
-    );
+        method: "POST",
 
-    if(existingProduct){
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
 
-        existingProduct.quantity += 1;
+        body:
+        `id=${encodeURIComponent(product.id)}&name=${encodeURIComponent(product.name)}&price=${encodeURIComponent(product.price)}&image=${encodeURIComponent(product.image)}`
 
-    }else{
+    })
 
-        cartItems.push({
+    .then(response => response.text())
 
-            name: product.name,
+    .then(data => {
 
-            price: product.price,
+        if(data == "login_required"){
 
-            quantity: 1
+            window.location.href = "login.html";
 
-        });
+        }
 
-    }
+        else if(data == "added"){
 
-    localStorage.setItem(
-        "cartItems",
-        JSON.stringify(cartItems)
-    );
+            alert("Added To Cart 🛒");
 
-    alert("Added To Cart");
+        }
+
+        else{
+
+            alert(data);
+
+        }
+
+    });
 
 });
 
+
+document.getElementById("detail-buy")
+.addEventListener("click",()=>{
+
+localStorage.setItem(
+"buyNowProduct",
+JSON.stringify(product)
+);
+
+
+window.location.href =
+"checkout.php?buynow=1";
+
+
+});
+});

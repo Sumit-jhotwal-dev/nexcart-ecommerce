@@ -1,0 +1,27 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# VS Code
+.vscode/
+
+# Node
+node_modules/
+
+# Composer
+vendor/
+
+# Environment Files
+.env
+
+# Log Files
+*.log
+
+# Cache Files
+.cache/
+
+# Temporary Files
+*.tmp
+
+# XAMPP
+xampp-control.ini
