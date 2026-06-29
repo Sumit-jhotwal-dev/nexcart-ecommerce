@@ -1,6 +1,6 @@
 ## 🌐 Live Demo
 
-nexcartmy.gt.tc
+https://nexcartmy.gt.tc/
 
 # 🛒 NexCart - Full Stack E-Commerce Website
 
