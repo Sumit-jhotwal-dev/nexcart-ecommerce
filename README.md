@@ -99,7 +99,7 @@ using phpMyAdmin.
 
 ### 6 Run Project
 
-http://localhost/NexCart
+https://nexcartmy.gt.tc/
 
 ---
 
