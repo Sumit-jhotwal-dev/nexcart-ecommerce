@@ -1,3 +1,7 @@
+## 🌐 Live Demo
+
+https://nexcartmy.gt.tc/
+
 # 🛒 NexCart - Full Stack E-Commerce Website
 
 A modern Full Stack E-Commerce website developed using PHP, MySQL, HTML, CSS and JavaScript. The project includes user authentication, shopping cart, checkout, order management and responsive user interface.
